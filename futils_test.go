@@ -7,17 +7,21 @@ import (
 	"testing"
 )
 
-var baseDir string = "."
-var testFolder1 string = baseDir + "testFolder1"
-var testFolder2 string = baseDir + "testFolder2"
-var testFolder3 string = baseDir + "testFolder3"
+var baseFolder string = "./test/"
+var testFolder1 string = baseFolder + "testFolder1"
+var testFolder2 string = baseFolder + "testFolder2"
+var testFolder3 string = baseFolder + "testFolder3"
 
 var filename1 string = testFolder1 + "/" + "Testfile1.txt"
 var filename2 string = testFolder2 + "/" + "Testfile2.txt"
 
 func TestCreateFolders(t *testing.T) {
 
-	err := CreateFolder(testFolder1)
+	err := CreateFolder(baseFolder)
+	if err != nil {
+		t.Errorf("Error: %s", err.Error())
+	}
+	err = CreateFolder(testFolder1)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
@@ -30,7 +34,7 @@ func TestCreateFolders(t *testing.T) {
 		t.Errorf("Error: %s", err.Error())
 	}
 
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestCreateEmptyFiles(t *testing.T) {
@@ -45,7 +49,7 @@ func TestCreateEmptyFiles(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestWriteAndReadFile(t *testing.T) {
@@ -72,7 +76,7 @@ func TestWriteAndReadFile(t *testing.T) {
 
 func TestRenameFile(t *testing.T) {
 
-	newfilename1 := testFolder1+ "/" + "NewTestFile.txt" 
+	newfilename1 := testFolder1 + "/" + "NewTestFile.txt" 
 	fmt.Printf("filename1=%s\n", filename1)
 	fmt.Printf("newfilename1=%s\n", newfilename1)
 	err := RenameFile(filename1, newfilename1)
@@ -80,7 +84,7 @@ func TestRenameFile(t *testing.T) {
 		t.Errorf("Error: %s", err.Error())
 	}
 	filename1 = newfilename1
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestMoveFile(t *testing.T) {
@@ -91,7 +95,7 @@ func TestMoveFile(t *testing.T) {
 		t.Errorf("Error: %s", err.Error())
 	}
 	filename1 = newfilename1
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestDeleteFile(t *testing.T) {
@@ -100,25 +104,25 @@ func TestDeleteFile(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestMoveFolders(t *testing.T) {
 
-	newFolder := testFolder1 + "/" + testFolder2 
+	newFolder := testFolder1 + "/testFolder2" 
 	err := MoveFolder(testFolder2, newFolder)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
 	testFolder2 = newFolder
 
-	newFolder = testFolder1 + "/" + testFolder3 
+	newFolder = testFolder1 + "/testFolder3" 
 	err = MoveFolder(testFolder3, newFolder)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
 	testFolder3 = newFolder
-	PrintFolderRecursively(baseDir)
+	PrintFolderRecursively(baseFolder)
 }
 
 func TestDeleteFolders(t *testing.T) {
@@ -135,5 +139,9 @@ func TestDeleteFolders(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	PrintFolderRecursively(baseDir)
+	err = DeleteFolder(baseFolder)
+	if err != nil {
+		t.Errorf("Error: %s", err.Error())
+	}
+	PrintFolderRecursively(baseFolder)
 }
