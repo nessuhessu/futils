@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-var baseFolder string = "./test/"
+var baseFolder string = "../test/"
 var testFolder1 string = baseFolder + "testFolder1"
 var testFolder2 string = baseFolder + "testFolder2"
 var testFolder3 string = baseFolder + "testFolder3"
