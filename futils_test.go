@@ -245,22 +245,22 @@ func TestDeleteFolders(t *testing.T) {
 	assert.DirExists(t, testFolder2)
 	assert.DirExists(t, testFolder3)
 
-	fmt.Printf("Delete folder: %s ", testFolder1)
+	fmt.Printf("Delete folder: %s\n", testFolder1)
 	err := DeleteFolder(testFolder1)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	fmt.Printf("Delete folder: %s ", testFolder2)
+	fmt.Printf("Delete folder: %s\n", testFolder2)
 	err = DeleteFolder(testFolder2)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	fmt.Printf("Delete folder: %s ", testFolder3)
+	fmt.Printf("Delete folder: %s\n", testFolder3)
 	err = DeleteFolder(testFolder3)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
 	}
-	fmt.Printf("Delete folder: %s ", baseFolder)
+	fmt.Printf("Delete folder: %s\n", baseFolder)
 	err = DeleteFolder(baseFolder)
 	if err != nil {
 		t.Errorf("Error: %s", err.Error())
