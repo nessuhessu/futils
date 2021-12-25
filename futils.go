@@ -13,6 +13,13 @@ import (
 	"strconv"
 )
 
+type FileInfo struct {
+	IsDir bool
+	FullFileName string
+	Size string
+	Date string
+}
+
 func FileOrFolderExists(fileOrFolderName string) bool {
 	_, err := os.Stat(fileOrFolderName)
 	if os.IsNotExist(err) {
@@ -183,16 +190,9 @@ func PrintFolderRecursively(fromFolder string) error {
 	return nil
 }
 
-type fileInfo struct {
-	IsDir bool
-	FullFileName string
-	Size string
-	Date string
-}
-
-func GetFolderContentRecursively(fromFolder string) (map[string]fileInfo, error) {
+func GetFolderContentRecursively(fromFolder string) (map[string]FileInfo, error) {
   
-	files := make(map[string]fileInfo)
+	files := make(map[string]FileInfo)
 	err := filepath.WalkDir(fromFolder, func(fullFileName string, file fs.DirEntry,  err error) error {
 		if err != nil {
 			return err
@@ -202,7 +202,7 @@ func GetFolderContentRecursively(fromFolder string) (map[string]fileInfo, error)
 		if err!= nil {
 			return err
 		}
-		fileInfo := fileInfo{}
+		fileInfo := FileInfo{}
 		fileInfo.IsDir = osFileInfo.IsDir()
 		fileInfo.FullFileName = fullFileName  // Relative path + filename
 		fileInfo.Size = strconv.FormatInt(osFileInfo.Size(),10)
